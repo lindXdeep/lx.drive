@@ -44,8 +44,7 @@
         <configuration>
           <verbose>false</verbose>
           <encoding>UTF-8</encoding>
-          <source>${java.version}</source>
-          <target>${java.version}</target>
+          <release>15</release>
         </configuration>
       </plugin>
 

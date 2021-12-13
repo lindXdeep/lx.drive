@@ -7,7 +7,7 @@
     "**/.factorypath": true,
     "**/.dccache": true,
     "**/target": true,
-    "**/out": true,
+    "**/out": false,
     "mvnw.cmd": true,
     "mvnw": true,
     ".mvn/": true,
