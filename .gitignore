@@ -1,4 +1,10 @@
 .project  
 .settings
 .vscode/
+.classpath
+out/
+target/
+**/out/
+**/target/
+
 
