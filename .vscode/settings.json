@@ -1,0 +1,33 @@
+{
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "files.exclude": {
+    "**/.classpath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/.factorypath": true,
+    "**/.dccache": true,
+    "**/target": true,
+    "**/out": true,
+    "mvnw.cmd": true,
+    "mvnw": true,
+    ".mvn/": true,
+    
+    "README.md": false,
+    "**/pom.xml": false,
+    "makefile": false,
+    ".gitignore": false,
+  },
+
+  "java.project.referencedLibraries": [
+    "lib/*.jar",
+    "lib/**/*.jar"
+  ],
+
+  "java.project.sourcePaths": [
+    "src/main/java",
+    "src/test/java",
+    "src/main/resources"
+  ],
+  "workspaceCacheClean.silent": false,
+  "workspaceCacheClean.autoReload": false,
+}
