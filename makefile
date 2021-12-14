@@ -26,6 +26,17 @@ compile-client:
 compile-server:
 	./mvnw compile -pl server
 
+# --------- compile ---------
+
+test:
+	./mvnw test
+
+test-client:
+	./mvnw test -pl client
+
+test-server:
+	./mvnw test -pl server
+
 # --------- execute ---------
 
 run-client:

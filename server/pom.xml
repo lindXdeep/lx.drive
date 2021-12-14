@@ -17,10 +17,13 @@
   <version>v000</version>
   <packaging>jar</packaging>
 
+  <name>drive-server</name>
+
   <properties>
 
     <main.class>lx.lindx.drive.server.App</main.class>
 
+    <exec-maven-plugin.vercsion>3.0.0</exec-maven-plugin.vercsion>
   </properties>
 
   <build>
@@ -31,7 +34,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
-        <version>3.0.0</version>
+        <version>${exec-maven-plugin.vercsion}</version>
         <configuration>
           <executable>java</executable>
           <arguments>

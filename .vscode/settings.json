@@ -1,33 +1,18 @@
 {
-  "java.configuration.updateBuildConfiguration": "automatic",
   "files.exclude": {
     "**/.classpath": true,
-    "**/.project": true,
+    "**/.project": false,
     "**/.settings": true,
     "**/.factorypath": true,
     "**/.dccache": true,
-    "**/target": true,
+    "**/target": false,
     "**/out": false,
     "mvnw.cmd": true,
     "mvnw": true,
-    ".mvn/": true,
     
+    ".mvn/": true,
     "README.md": false,
     "**/pom.xml": false,
     "makefile": false,
-    ".gitignore": false,
-  },
-
-  "java.project.referencedLibraries": [
-    "lib/*.jar",
-    "lib/**/*.jar"
-  ],
-
-  "java.project.sourcePaths": [
-    "src/main/java",
-    "src/test/java",
-    "src/main/resources"
-  ],
-  "workspaceCacheClean.silent": false,
-  "workspaceCacheClean.autoReload": false,
-}
+    ".gitignore": true,
+  }
