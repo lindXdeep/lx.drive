@@ -22,33 +22,8 @@
   <properties>
 
     <main.class>lx.lindx.drive.server.App</main.class>
+    <out.jar.dir>out/</out.jar.dir>
 
-    <exec-maven-plugin.vercsion>3.0.0</exec-maven-plugin.vercsion>
   </properties>
-
-  <build>
-
-    <plugins>
-
-      <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>exec-maven-plugin</artifactId>
-        <version>${exec-maven-plugin.vercsion}</version>
-        <configuration>
-          <executable>java</executable>
-          <arguments>
-            <argument>-classpath</argument>
-            <!-- automatically creates the classpath using all project dependencies,
-                 also adding the project build directory -->
-            <classpath/>
-            <argument>${main.class}</argument>
-          </arguments>
-        </configuration>
-      </plugin>
-
-    </plugins>
-    
-  </build>
 
 </project>

@@ -21,12 +21,15 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <java.version>16</java.version>
+
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
 
     <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+    <exec-maven-plugin.vercsion>3.0.0</exec-maven-plugin.vercsion>
     <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
-    
+    <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
+
     <junit.jupiter.version>5.8.0-M1</junit.jupiter.version>
   </properties>
 
@@ -50,7 +53,7 @@
 
     <testSourceDirectory>${basedir}/src/test/java</testSourceDirectory>
     <testOutputDirectory>${basedir}/out/test-classes</testOutputDirectory>
-
+    
     <finalName>${project.name}</finalName>
 
     <plugins>
@@ -62,7 +65,24 @@
         <configuration>
           <verbose>false</verbose>
           <encoding>UTF-8</encoding>
-          <release>15</release>
+          <release>${java.version}</release>
+        </configuration>
+      </plugin>
+
+      <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>${exec-maven-plugin.vercsion}</version>
+        <configuration>
+          <executable>java</executable>
+          <arguments>
+            <argument>-classpath</argument>
+            <!-- automatically creates the classpath using all project dependencies,
+                 also adding the project build directory -->
+            <classpath/>
+            <argument>${main.class}</argument>
+          </arguments>
         </configuration>
       </plugin>
 
@@ -75,6 +95,27 @@
           <includes>
             <!-- <include>**/AppTest.java</include> -->
           </includes>
+        </configuration>
+      </plugin>
+
+      <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
+      <!-- <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version> -->
+      <!-- mvn jar:jar -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>${maven-jar-plugin.version}</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <classpathPrefix>libs/</classpathPrefix>
+              <mainClass>
+                  ${main.class}
+              </mainClass>
+            </manifest>
+          </archive>
+          <outputDirectory>${out.jar.dir}</outputDirectory>
         </configuration>
       </plugin>
 
