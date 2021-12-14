@@ -71,4 +71,4 @@ run-server-jar:
 
 exec: exec-client exec-server
 
-compile-exec: clean compile test exec
+compile-exec: clean compile tests exec

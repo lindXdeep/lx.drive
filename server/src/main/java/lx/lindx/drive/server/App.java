@@ -20,9 +20,11 @@ public class App {
 
     System.out.println("start server");
 
+    LOG.debug("test");
+
     try (InputStream input = App.class.getClassLoader().getResourceAsStream(serverPropertiesFile)) {
       
-      LOG.info("test");
+      
 
       if (input == null) {
         LOG.info("Unable to find server.properties");

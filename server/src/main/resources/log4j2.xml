@@ -6,7 +6,7 @@
 
     <File name="file" filename="./log/server.log">
       <PatternLayout>
-        <Pattern>%d %p %c{1.} [%t] %m %ex%n</Pattern>
+        <Pattern>%-5p %d{yyyy-MM-dd HH:mm} %c{1.} : %L [%t] | %m %ex%n</Pattern>
       </PatternLayout>
     </File>
 
@@ -14,7 +14,7 @@
 
   <Loggers>
     
-    <Root level="lx.lindx.drive.server">
+    <Root level="trace">
       <AppenderRef ref="file" level="DEBUG"/>
     </Root>
   
