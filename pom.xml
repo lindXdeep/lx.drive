@@ -31,6 +31,7 @@
     <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
 
     <junit.jupiter.version>5.8.0-M1</junit.jupiter.version>
+    <log4j.version>2.16.0</log4j.version>
   </properties>
 
   <name>drive</name>
@@ -44,6 +45,21 @@
       <version>${junit.jupiter.version}</version>
       <scope>test</scope>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>${log4j.version}</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>${log4j.version}</version>
+    </dependency>
+
   </dependencies>
 
   <build>
@@ -53,10 +69,32 @@
 
     <testSourceDirectory>${basedir}/src/test/java</testSourceDirectory>
     <testOutputDirectory>${basedir}/out/test-classes</testOutputDirectory>
-    
+
     <finalName>${project.name}</finalName>
 
     <plugins>
+
+      <plugin>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>3.1.0</version>
+        <configuration>
+          <filesets>
+            <fileset>
+              <directory>${basedir}/bin/</directory>
+            </fileset>
+            <fileset>
+              <directory>${basedir}/out</directory>
+            </fileset>
+            <fileset>
+              <directory>${basedir}/target</directory>
+            </fileset>
+            <fileset>
+              <directory>${basedir}/log</directory>
+            </fileset>
+          </filesets>
+        </configuration>
+      </plugin>
+
       <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -98,9 +136,31 @@
         </configuration>
       </plugin>
 
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy-dependencies</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+          </execution>
+        </executions>
+
+        <configuration>
+          <outputDirectory>
+            ${libs.dir}
+          </outputDirectory>
+        </configuration>
+
+     
+     
+
+      </plugin>
+
       <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
-      <!-- <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version> -->
-      <!-- mvn jar:jar -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
@@ -109,13 +169,13 @@
           <archive>
             <manifest>
               <addClasspath>true</addClasspath>
-              <classpathPrefix>libs/</classpathPrefix>
+              <classpathPrefix>${libs.dir}</classpathPrefix>
               <mainClass>
                   ${main.class}
               </mainClass>
             </manifest>
           </archive>
-          <outputDirectory>${out.jar.dir}</outputDirectory>
+          <outputDirectory>${out.jars.dir}</outputDirectory>
         </configuration>
       </plugin>
 

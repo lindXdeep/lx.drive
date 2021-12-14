@@ -5,7 +5,7 @@
     "**/.settings": true,
     "**/.factorypath": true,
     "**/.dccache": true,
-    "**/target": false,
+    "**/target": true,
     "**/out": false,
     "mvnw.cmd": true,
     "mvnw": true,
@@ -15,4 +15,7 @@
     "**/pom.xml": false,
     "makefile": false,
     ".gitignore": true,
-  }
+    "**/libs": true,
+  },
+  "java.configuration.updateBuildConfiguration": "automatic"
+}

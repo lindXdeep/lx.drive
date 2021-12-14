@@ -1,8 +1,9 @@
 .project  
 .settings
-out/
-target/
 **/out/
 **/target/
+**/libs/
+**/bin/
+**/log/
 
 

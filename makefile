@@ -59,13 +59,13 @@ exec-server:
 # --------- execute jar ---------
 
 run-all-jars:
-	java -jar client/out/drive-client.jar & java -jar server/out/drive-server.jar
+	java -jar client/bin/drive-client.jar & java -jar server/out/drive-server.jar
 
 run-client-jar:
-	java -jar client/out/drive-client.jar
+	java -jar client/bin/drive-client.jar
 
 run-server-jar:
-	java -jar server/out/drive-server.jar
+	java -jar server/bin/drive-server.jar 
 
 # --------- default ---------
 

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Configuration>
+
+  <Appenders>
+
+    <File name="file" filename="./log/server.log">
+      <PatternLayout>
+        <Pattern>%d %p %c{1.} [%t] %m %ex%n</Pattern>
+      </PatternLayout>
+    </File>
+
+  </Appenders>
+
+  <Loggers>
+    
+    <Root level="lx.lindx.drive.server">
+      <AppenderRef ref="file" level="DEBUG"/>
+    </Root>
+  
+  </Loggers>
+
+</Configuration>

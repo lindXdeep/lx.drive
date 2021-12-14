@@ -22,7 +22,8 @@
   <properties>
 
     <main.class>lx.lindx.drive.server.App</main.class>
-    <out.jar.dir>out/</out.jar.dir>
+    <out.jars.dir>${basedir}/bin</out.jars.dir>
+    <libs.dir>${basedir}/libs</libs.dir>
 
   </properties>
 
