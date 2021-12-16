@@ -1,8 +1,14 @@
 .project  
 .settings
-out/
-target/
 **/out/
 **/target/
+<<<<<<< HEAD
+**/libs
+**/log
+=======
+**/libs/
+**/bin/
+**/log/
+>>>>>>> 5db55f209e79c8d1021bc130b72ad3de8ca88bbd
 
 

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Configuration>
+
+  <Appenders>
+
+    <Console name="log_console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{yyyy-MM-dd HH:mm} [%t] | %msg%n"/>
+    </Console>
+
+    <File name="log_events" filename="./log/events.log">
+      <PatternLayout>
+        <Pattern>%-5p %d{yyyy-MM-dd HH:mm} %c : [%t] | %m %ex%n</Pattern>
+      </PatternLayout>
+    </File>
+
+    <File name="log_errors" filename="./log/errors.log">
+      <PatternLayout>
+        <Pattern>%-5p %d{yyyy-MM-dd HH:mm} %c{1.} : %L [%t] | %m %ex%n</Pattern>
+      </PatternLayout>
+    </File>
+
+  </Appenders>
+
+  <Loggers>
+
+    <Root level="trace">
+      <AppenderRef ref="log_errors" level="error"/>
+      <AppenderRef ref="log_events" level="info"/>
+      <AppenderRef ref="log_console" level="info"/>
+    </Root>
+
+  </Loggers>
+
+</Configuration>

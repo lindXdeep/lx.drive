@@ -19,23 +19,82 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
     <java.version>16</java.version>
+
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
 
     <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+    <exec-maven-plugin.vercsion>3.0.0</exec-maven-plugin.vercsion>
+    <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
+    <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
+
+    <junit.jupiter.version>5.8.0-M1</junit.jupiter.version>
+    <log4j.version>2.16.0</log4j.version>
   </properties>
 
   <name>drive</name>
   <url>https://github.com/lindXdeep/lx.drive.git</url>
 
+  <dependencies>
+    <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>${junit.jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>${log4j.version}</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>${log4j.version}</version>
+    </dependency>
+
+  </dependencies>
+
   <build>
 
     <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
     <outputDirectory>${basedir}/out</outputDirectory>
+
+    <testSourceDirectory>${basedir}/src/test/java</testSourceDirectory>
+    <testOutputDirectory>${basedir}/out/test-classes</testOutputDirectory>
+
     <finalName>${project.name}</finalName>
 
     <plugins>
+
+      <plugin>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>3.1.0</version>
+        <configuration>
+          <filesets>
+            <fileset>
+              <directory>${basedir}/bin/</directory>
+            </fileset>
+            <fileset>
+              <directory>${basedir}/out</directory>
+            </fileset>
+            <fileset>
+              <directory>${basedir}/target</directory>
+            </fileset>
+            <fileset>
+              <directory>${basedir}/log</directory>
+            </fileset>
+          </filesets>
+        </configuration>
+      </plugin>
+
       <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -44,7 +103,75 @@
         <configuration>
           <verbose>false</verbose>
           <encoding>UTF-8</encoding>
-          <release>15</release>
+          <release>${java.version}</release>
+        </configuration>
+      </plugin>
+
+      <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>${exec-maven-plugin.vercsion}</version>
+        <configuration>
+          <executable>java</executable>
+          <arguments>
+            <argument>-classpath</argument>
+            <!-- automatically creates the classpath using all project dependencies,
+                 also adding the project build directory -->
+            <classpath/>
+            <argument>${main.class}</argument>
+          </arguments>
+        </configuration>
+      </plugin>
+
+      <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven-surefire-plugin.version}</version>
+        <configuration>
+          <includes>
+            <!-- <include>**/AppTest.java</include> -->
+          </includes>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy-dependencies</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+          </execution>
+        </executions>
+
+        <configuration>
+          <outputDirectory>
+            ${libs.dir}
+          </outputDirectory>
+        </configuration>
+      </plugin>
+
+      <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>${maven-jar-plugin.version}</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <classpathPrefix>${libs.dir}</classpathPrefix>
+              <mainClass>
+                  ${main.class}
+              </mainClass>
+            </manifest>
+          </archive>
+          <outputDirectory>${out.jars.dir}</outputDirectory>
         </configuration>
       </plugin>
 
