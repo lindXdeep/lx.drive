@@ -7,10 +7,11 @@
     "**/.factorypath": true,
     "**/.dccache": true,
     "**/target": true,
-    "**/out": false,
     "mvnw.cmd": true,
     "mvnw": true,
     ".mvn/": true,
+    "**/out": true,
+    "**/libs": true,
     
     "README.md": false,
     "**/pom.xml": false,
