@@ -33,7 +33,8 @@ public class Server extends Thread {
     Util.log(Util.getStr("srv.start") + " -> " + PORT);
     try (ServerSocket serverSocket = new ServerSocket(PORT)) {
       while (true) {
-        Util.log("srv.wait");
+
+        Util.log(Util.getStr("srv.wait"));
         socket = serverSocket.accept();
         Util.log("Client" + Util.getAddress(socket) + "connected!");
         new Connection(socket, this).start();
@@ -41,6 +42,5 @@ public class Server extends Thread {
     } catch (IOException e) {
 
     }
-
   }
 }

@@ -25,7 +25,7 @@ public class Config {
     return (PORT > 0 && PORT <= 65535) ? PORT : 0;
   }
 
-  public static int getBufferSize() {
+  public static int getBufSize() {
     return BUFF;
   }
 

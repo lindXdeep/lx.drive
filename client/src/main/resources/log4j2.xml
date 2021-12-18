@@ -4,6 +4,10 @@
 
   <Appenders>
 
+    <Console name="log_console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{yyyy-MM-dd HH:mm} [%t] | %msg%n"/>
+    </Console>
+
     <File name="log_events" filename="./log/events.log">
       <PatternLayout>
         <Pattern>%-5p %d{yyyy-MM-dd HH:mm} %c : [%t] | %m %ex%n</Pattern>
@@ -23,6 +27,7 @@
     <Root level="trace">
       <AppenderRef ref="log_errors" level="error"/>
       <AppenderRef ref="log_events" level="info"/>
+      <AppenderRef ref="log_console" level="info"/>
     </Root>
 
   </Loggers>

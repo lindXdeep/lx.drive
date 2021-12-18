@@ -1,21 +1,34 @@
 package lx.lindx.drive.client;
 
-import lx.lindx.drive.client.util.Config;
+import lx.lindx.drive.client.api.Connect;
+import lx.lindx.drive.client.err.UserDirNotFoundException;
+import lx.lindx.drive.client.net.Connection;
 import lx.lindx.drive.client.util.Util;
 
 /**
  * AppClient
  */
 public class App {
-  
-  public static void main(String[] args) {
-    System.out.println("run client");
 
-    Util.log("test info log");
-    Util.log().error("test error log");
-    System.out.println("clt.prop: " + Util.getCltProp("clt.prop"));
-    System.out.println("cfg.prop: " + Util.getCfgProp("cfg.prop"));
-    System.out.println("cfg.prop: " + Config.getBufferSize());  
+  private static Connect connect;
 
+  /**
+   * syns <source> to server
+   * 
+   * @param args
+   */
+  public static void main(String... args) {
+
+    try {
+      Util.checkUserSourceDir();
+    } catch (UserDirNotFoundException e) {
+      Util.createDefaultUserDir();
+    }
+
+    connect = new Connect(
+        Util.getCfgProp("srv.host"),
+        Util.getCfgProp("srv.port"));
+
+    connect.connect();
   }
 }
