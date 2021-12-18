@@ -1,11 +1,15 @@
 package lx.lindx.drive.server;
 
+import lx.lindx.drive.server.util.Config;
+
 /**
  * App
  */
 public class App {
 
   public static void main(String[] args) {
-    System.out.println("server");
+
+    Server server = new Server(Config.getPort());
+    server.start();
   }
 }
