@@ -1,5 +1,6 @@
 package lx.lindx.drive.server.util;
 
+import java.io.IOException;
 import java.net.Socket;
 
 import org.apache.logging.log4j.LogManager;
@@ -10,6 +11,8 @@ public class Util {
   private final static Logger LOG = LogManager.getLogger(Util.class.getSuperclass().getName());
   private static StringBuilder sb;
 
+  private static ClassLoader loader;
+
   public static Logger log() {
     return LOG;
   }
@@ -18,8 +21,21 @@ public class Util {
     LOG.info(msglog);
   }
 
+  public static void logQuery(final String log) {
+    System.out.println(log);
+  }
+
   public static String getStr(final String str) {
     return Config.srv().getProperty(str);
+  }
+
+  public static String getQuery(final String query){
+    try {
+      return new String(Util.class.getClassLoader().getResourceAsStream("db/".concat(query).concat(".sql")).readAllBytes());
+    } catch (IOException e) {
+      LOG.error(e.getMessage());
+    }
+    throw new RuntimeException();
   }
 
   public static String getAddress(Socket socket) {

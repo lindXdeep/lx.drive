@@ -4,6 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class UserBuilder {
+  
   private long id;
   private String username;
   private String email;

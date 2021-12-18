@@ -8,6 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class User {
+
   private final long id;
   private final String userName;
   private final String email;
@@ -18,7 +19,7 @@ public class User {
   User(final UserBuilder userBuilder) {
     this.id = userBuilder.getId();
     this.userName = userBuilder.getUsername();
-    this.email = getEmail();
+    this.email = userBuilder.getEmail();
     this.password = userBuilder.getPassword();
     this.authCode = userBuilder.getAuthCode();
     this.key = userBuilder.getKey();
@@ -47,12 +48,12 @@ public class User {
 
     User user = (User) o;
 
-    return Objects.equals(this.id, user.id) && 
-        Objects.equals(this.userName, user.userName) && 
-        this.authCode == user.authCode && 
-        Objects.equals(this.email, user.email) && 
-        Objects.equals(this.password, user.password) && 
-        Objects.equals(this.key, user.key); 
+    return Objects.equals(this.id, user.id) &&
+        Objects.equals(this.userName, user.userName) &&
+        this.authCode == user.authCode &&
+        Objects.equals(this.email, user.email) &&
+        Objects.equals(this.password, user.password) &&
+        Objects.equals(this.key, user.key);
   }
 
   @Override

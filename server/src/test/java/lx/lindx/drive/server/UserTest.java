@@ -12,9 +12,8 @@ public class UserTest {
 
   private static User user1;
   private static User user2;
-  private static UserBuilder builder;
 
-  private static final long expect_id = 00010020000300001L;
+  private static final long expect_id = 1;
   private static final String expect_userName = "user";
   private static final String expect_email = "user@user";
   private static final String expect_password = "password";
@@ -46,6 +45,9 @@ public class UserTest {
   @Test
   @DisplayName("Start User testing")
   public void testUser() {
-    Assertions.assertTrue(user1.equals(user2));
+
+    Assertions.assertEquals(user1, user2);
+    System.out.println(user1);
+    System.out.println(user2);
   }
 }
