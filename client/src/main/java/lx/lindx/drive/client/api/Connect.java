@@ -1,7 +1,5 @@
 package lx.lindx.drive.client.api;
 
-import java.net.Socket;
-
 import lx.lindx.drive.client.net.Connection;
 import lx.lindx.drive.client.util.Util;
 
@@ -23,7 +21,14 @@ public class Connect {
   }
 
   public boolean disconnet() {
-    return false;
+    return connection.kill();
   }
 
+  public void send(final byte[] bytes) {
+    connection.send(bytes);
+  }
+
+  public byte[] read() {
+    return connection.read();
+  }
 }

@@ -59,6 +59,14 @@ public class Config {
     return DB_DRIVER;
   }
 
+  public static int getCommandBlockSize(){
+    return Integer.parseInt(cfg.getProperty("blk.size.commans"));
+  }
+
+  public static int getDataSizeBlockSize(){
+    return Integer.parseInt(cfg.getProperty("blk.size.datasize"));
+  }
+
   protected static Properties srv() {
     return srv;
   }

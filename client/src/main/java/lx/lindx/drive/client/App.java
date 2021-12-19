@@ -1,8 +1,9 @@
 package lx.lindx.drive.client;
 
+import lx.lindx.drive.client.api.Auth;
 import lx.lindx.drive.client.api.Connect;
 import lx.lindx.drive.client.err.UserDirNotFoundException;
-import lx.lindx.drive.client.net.Connection;
+import lx.lindx.drive.client.net.Protocol;
 import lx.lindx.drive.client.util.Util;
 
 /**
@@ -12,11 +13,6 @@ public class App {
 
   private static Connect connect;
 
-  /**
-   * syns <source> to server
-   * 
-   * @param args
-   */
   public static void main(String... args) {
 
     try {
@@ -30,5 +26,13 @@ public class App {
         Util.getCfgProp("srv.port"));
 
     connect.connect();
+
+    // controller
+
+    Auth auth = new Auth(new Protocol());
+
+    connect.send(auth.signin("username", "password"));
+    connect.send(auth.signup("username", "email", "password"));
+
   }
 }

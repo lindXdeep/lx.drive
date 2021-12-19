@@ -48,7 +48,7 @@ public class UserServiceTest {
         .setKey(expect_key)
         .build();
 
-    db.connect();
+  /*   db.connect();
 
     assertAll(() -> {
       statement = db.prepareStatement(Util.getQuery(CREATE_USERS.query()));
@@ -56,7 +56,7 @@ public class UserServiceTest {
       statement.close();
     });
 
-    db.disconnect();
+    db.disconnect(); */
   }
 
   @Test

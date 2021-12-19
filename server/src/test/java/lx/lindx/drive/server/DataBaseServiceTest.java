@@ -16,6 +16,7 @@ import java.sql.SQLException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import lx.lindx.drive.server.model.User;
@@ -41,7 +42,7 @@ public class DataBaseServiceTest {
   public static void init() {
 
     db = new DataBaseService();
-
+/* 
     db.connect();
 
     try {
@@ -52,7 +53,7 @@ public class DataBaseServiceTest {
       e.printStackTrace();
     }
 
-    db.disconnect();
+    db.disconnect(); */
 
     expected_user = new UserBuilder()
         .setUsername(expect_userName)
@@ -66,13 +67,13 @@ public class DataBaseServiceTest {
   @Test
   void testInsertUser() {
 
-    db.connect();
+   /*  db.connect();
 
     statement = db.prepareStatement(Util.getQuery(CREATE_USERS.query()));
     Assertions.assertDoesNotThrow(() -> statement.execute());
     Assertions.assertAll(() -> statement.close());
 
-    db.disconnect();
+    db.disconnect(); */
 
     db.connect();
 
@@ -112,7 +113,7 @@ public class DataBaseServiceTest {
     Assertions.assertEquals(expected_user.getEmail(), actual_user.getEmail());
   }
 
-  @AfterAll
+  //@AfterAll
   static void dropTable() {
 
     db.connect();
