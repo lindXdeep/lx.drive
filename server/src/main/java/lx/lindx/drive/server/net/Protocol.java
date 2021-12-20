@@ -1,4 +1,4 @@
-package lx.lindx.drive.server;
+package lx.lindx.drive.server.net;
 
 import java.nio.ByteBuffer;
 import java.util.Arrays;
@@ -35,11 +35,12 @@ public class Protocol {
     return request.array();
   }
 
-  public byte[][] unpacked(byte[] buf) {
+  public byte[][] unpacked(byte[] buf) throws ArrayIndexOutOfBoundsException {
 
     byte[] command = Arrays.copyOfRange(buf, 0, comm_blk);
     byte[] datasize = Arrays.copyOfRange(buf, comm_blk, zero_data_idx);
     byte[] data = Arrays.copyOfRange(buf, zero_data_idx, zero_data_idx + Util.byteToInt(datasize));
+
     return new byte[][] { command, datasize, data };
   }
 }

@@ -12,6 +12,9 @@ import lx.lindx.drive.client.util.Util;
 public class App {
 
   private static Connect connect;
+  private static Controller controller;
+  private static Auth auth;
+
 
   public static void main(String... args) {
 
@@ -25,14 +28,19 @@ public class App {
         Util.getCfgProp("srv.host"),
         Util.getCfgProp("srv.port"));
 
-    connect.connect();
-
     // controller
+    controller = new Controller(connect, new Auth(new Protocol()));
 
-    Auth auth = new Auth(new Protocol());
+    System.out.println("----connect-----");
+    controller.connect();
 
-    connect.send(auth.signin("username", "password"));
-    connect.send(auth.signup("username", "email", "password"));
+    System.out.println("----sigin-----");
+    controller.sigin(args[0], args[1]);
 
+    System.out.println("----authWithkey-----");
+    controller.authWithkey();
+
+    System.out.println("----enterToAccount-----");
+    controller.enterToAccount();
   }
 }

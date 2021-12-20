@@ -25,22 +25,22 @@ public class UserServiceImpl implements IUserService {
   }
 
   @Override
-  public void update(User user) {
+  public void update(final User user) {
     userDao.update(user);
   }
 
   @Override
-  public User getUserById(Long id) {
+  public User getUserById(final Long id) {
     return userDao.getUserById(id);
   }
 
   @Override
-  public User getUserByEmail(String email) {
+  public User getUserByEmail(final String email) {
     return userDao.getUserByEmail(email);
   }
 
   @Override
-  public User getUserByName(String name) {
+  public User getUserByName(final String name) {
     return userDao.getUserByName(name);
   }
 

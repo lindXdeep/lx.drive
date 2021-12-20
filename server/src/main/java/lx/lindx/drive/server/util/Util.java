@@ -2,14 +2,28 @@ package lx.lindx.drive.server.util;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 public class Util {
 
   private final static Logger LOG = LogManager.getLogger(Util.class.getSuperclass().getName());
   private static StringBuilder sb;
+  private static MessageDigest sha1;
+
+  static {
+    try {
+      sha1 = MessageDigest.getInstance("SHA-1");
+    } catch (NoSuchAlgorithmException e) {
+      e.printStackTrace();
+    }
+  }
 
   private static ClassLoader loader;
 
@@ -87,5 +101,25 @@ public class Util {
 
   public static byte[] strToByte(String str) {
     return str.getBytes();
+  }
+
+  public static JSONObject parseCredential(String data) {
+
+    try {
+      return (JSONObject) new JSONParser().parse(data);
+    } catch (ParseException e) {
+      Util.log().error(e.getMessage());
+    }
+    return null;
+  }
+
+  public static String toHash(String str) {
+
+    StringBuilder sbhash = new StringBuilder();
+
+    for (byte b : sha1.digest(str.getBytes()))
+      sbhash.append(String.format("%02X", b));
+
+    return sbhash.toString();
   }
 }

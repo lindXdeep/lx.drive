@@ -98,13 +98,13 @@ public class UserDaoImpl implements IUserDao {
 
     try {
       statement.setLong(6, user.getId());
-      
+
       statement.setString(1, user.getUserName());
       statement.setString(2, user.getEmail());
       statement.setString(3, user.getPassword());
       statement.setString(4, user.getAuthCode());
       statement.setString(5, user.getKey());
-      
+
       statement.executeUpdate();
       statement.close();
 
@@ -131,11 +131,14 @@ public class UserDaoImpl implements IUserDao {
 
       statement.execute();
       statement.close();
+
     } catch (SQLException e) {
       Util.log().error(e.getMessage());
     }
 
     db.disconnect();
+
+    System.out.println("---------------by email");
 
     return user;
   }
@@ -162,6 +165,8 @@ public class UserDaoImpl implements IUserDao {
     }
 
     db.disconnect();
+
+    System.out.println("---------------by user");
     return user;
   }
 
@@ -186,6 +191,9 @@ public class UserDaoImpl implements IUserDao {
     }
 
     db.disconnect();
+
+    System.out.println("---------------by key");
+
     return user;
   }
 
