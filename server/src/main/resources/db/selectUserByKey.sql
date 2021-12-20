@@ -1,0 +1,1 @@
+SELECT * FROM Users WHERE user_key=?

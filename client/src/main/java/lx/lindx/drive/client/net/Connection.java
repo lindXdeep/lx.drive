@@ -7,6 +7,9 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
+import lx.lindx.drive.client.err.CantReadBytesExeption;
+import lx.lindx.drive.client.err.CantWriteBytesExeption;
+import lx.lindx.drive.client.util.Config;
 import lx.lindx.drive.client.util.Util;
 
 public class Connection {
@@ -16,6 +19,9 @@ public class Connection {
   private DataInputStream in;
   private DataOutputStream out;
 
+  private byte[] buffer;
+  private int defBuffSize;
+
   private Socket socket;
   private String host;
   private int port;
@@ -23,10 +29,13 @@ public class Connection {
   public Connection(String host, int port) {
     this.host = host;
     this.port = port;
+
+    defBuffSize = Config.getBufferSize();
+    buffer = new byte[defBuffSize];
   }
 
   public boolean connect() {
-    
+
     int i = 5;
 
     while (i-- > 0 & socket == null) {
@@ -54,5 +63,56 @@ public class Connection {
       }
     }
     return connected;
+  }
+
+  public boolean kill() {
+    if (socket != null) {
+      try {
+        Thread.sleep(1000);
+        socket.close();
+        connected = false;
+        socket = null;
+      } catch (InterruptedException | IOException e) {
+        Util.log().error(e.getMessage());
+      }
+    }
+    return false;
+  }
+
+  public void send(byte[] bytes) {
+    try {
+      out.write(bytes);
+      out.flush();
+    } catch (IOException e) {
+      throw new CantWriteBytesExeption();
+    }
+  }
+
+  public byte[] read() {
+
+    allocateBuffer();
+
+    try {
+      in.read(buffer);
+    } catch (IOException e) {
+      throw new CantReadBytesExeption();
+    }
+    return buffer;
+  }
+
+  private void allocateBuffer() {
+    allocateBuffer(defBuffSize);
+  }
+
+  public void allocateBuffer(final int size) {
+    this.buffer = new byte[size];
+  }
+
+  public boolean isConnect() {
+    return this.connected;
+  }
+
+  public byte[] getBuffer() {
+    return buffer;
   }
 }

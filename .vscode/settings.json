@@ -21,5 +21,22 @@
     ".gitignore": true,
     "**/libs": true,
   },
-  "java.configuration.updateBuildConfiguration": "automatic"
+
+
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "sqltools.connections": [
+    {
+      "mysqlOptions": {
+        "authProtocol": "default"
+      },
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 3306,
+      "driver": "MySQL",
+      "name": "lx_drive_database",
+      "database": "db_drive_users",
+      "username": "lindx",
+      "password": "Mysql12345!"
+    }
+  ]
 }

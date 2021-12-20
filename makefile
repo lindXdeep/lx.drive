@@ -56,6 +56,7 @@ exec-client:
 exec-server:
 	./mvnw exec:exec -pl server
 
+
 # --------- execute jar ---------
 
 run-all-jars:
@@ -72,3 +73,13 @@ run-server-jar:
 exec: exec-client exec-server
 
 compile-exec: clean compile tests exec
+
+# ---- copy-dependencies ----
+
+copy-dependencies:
+	./mvnw dependency:copy-dependencies 
+
+# -- deploy server and client --
+
+deploy:
+	cp -r server ../../repo-default/gb-javacore/server/ client ../../repo-default/gb-javacore/client/
