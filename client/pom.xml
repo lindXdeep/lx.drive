@@ -17,33 +17,14 @@
   <version>v000</version>
   <packaging>jar</packaging>
 
+  <name>drive-client</name>
+
   <properties>
 
     <main.class>lx.lindx.drive.client.App</main.class>
+    <out.jars.dir>${basedir}/bin</out.jars.dir>
+    <libs.dir>${basedir}/libs</libs.dir>
 
   </properties>
-
-  <build>
-    <plugins>
-
-      <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>exec-maven-plugin</artifactId>
-        <version>3.0.0</version>
-        <configuration>
-          <executable>java</executable>
-          <arguments>
-            <argument>-classpath</argument>
-            <!-- automatically creates the classpath using all project dependencies,
-                 also adding the project build directory -->
-            <classpath/>
-            <argument>${main.class}</argument>
-          </arguments>
-        </configuration>
-      </plugin>
-
-    </plugins>
-  </build>
 
 </project>
