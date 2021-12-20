@@ -1,7 +1,9 @@
 package lx.lindx.drive.client.api;
 
+
 import lx.lindx.drive.client.net.Connection;
 import lx.lindx.drive.client.net.Protocol;
+
 import lx.lindx.drive.client.util.Util;
 
 public class Connect {
@@ -22,6 +24,7 @@ public class Connect {
   }
 
   public boolean disconnet() {
+
     return connection.kill();
   }
 
@@ -54,4 +57,5 @@ public class Connect {
 
     return b;
   }
+
 }

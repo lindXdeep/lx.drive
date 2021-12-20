@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+
 import lx.lindx.drive.client.net.Protocol;
+
 
 /**
  * Server Config
@@ -25,6 +27,7 @@ public class Config {
     return BUFF;
   }
 
+
   public static int getCommandBlockSize(){
     return Integer.parseInt(cfg.getProperty("blk.size.commans"));
   }
@@ -32,6 +35,7 @@ public class Config {
   public static int getDataSizeBlockSize(){
     return Integer.parseInt(cfg.getProperty("blk.size.datasize"));
   }
+
 
   protected static Properties clt() {
     return clt;

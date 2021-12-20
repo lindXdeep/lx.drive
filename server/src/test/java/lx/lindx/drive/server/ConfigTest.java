@@ -1,10 +1,12 @@
 package lx.lindx.drive.server;
 
+
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
 import java.util.Properties;
 
 import org.junit.jupiter.api.Assertions;
@@ -23,6 +25,7 @@ public class ConfigTest {
   private static final String cfgprop = "config.properties";
   private static final String srv_param = "srv.prop";
   private static final String cfg_param = "cfg.prop";
+
 
   private static final String DB_URL = Config.getDbUrl();
   private static final String DB_USER = Config.getDbUser();
@@ -58,4 +61,5 @@ public class ConfigTest {
   void testConnectDataBaseWrongUser() {
     assertThrows(SQLException.class, () -> DriverManager.getConnection(DB_URL, "userothrer", DB_PASS));
   }
+
 }

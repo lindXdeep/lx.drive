@@ -10,6 +10,7 @@ import java.net.Socket;
 import lx.lindx.drive.client.err.CantReadBytesExeption;
 import lx.lindx.drive.client.err.CantWriteBytesExeption;
 import lx.lindx.drive.client.util.Config;
+
 import lx.lindx.drive.client.util.Util;
 
 public class Connection {
@@ -19,8 +20,10 @@ public class Connection {
   private DataInputStream in;
   private DataOutputStream out;
 
+
   private byte[] buffer;
   private int defBuffSize;
+
 
   private Socket socket;
   private String host;
@@ -30,11 +33,13 @@ public class Connection {
     this.host = host;
     this.port = port;
 
+
     defBuffSize = Config.getBufferSize();
     buffer = new byte[defBuffSize];
   }
 
   public boolean connect() {
+
 
     int i = 5;
 
@@ -64,6 +69,7 @@ public class Connection {
     }
     return connected;
   }
+
 
   public boolean kill() {
     if (socket != null) {
@@ -115,4 +121,5 @@ public class Connection {
   public byte[] getBuffer() {
     return buffer;
   }
+
 }

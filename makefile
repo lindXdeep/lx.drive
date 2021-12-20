@@ -57,6 +57,8 @@ exec-server:
 	./mvnw exec:exec -pl server
 
 
+
+
 # --------- execute jar ---------
 
 run-all-jars:
@@ -71,6 +73,7 @@ run-server-jar:
 # --------- default ---------
 
 exec: exec-client exec-server
+
 
 compile-exec: clean compile tests exec
 

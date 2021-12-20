@@ -1,5 +1,6 @@
 package lx.lindx.drive.server.util;
 
+
 import java.io.IOException;
 import java.net.Socket;
 import java.security.MessageDigest;
@@ -11,10 +12,12 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+
 public class Util {
 
   private final static Logger LOG = LogManager.getLogger(Util.class.getSuperclass().getName());
   private static StringBuilder sb;
+
   private static MessageDigest sha1;
 
   static {
@@ -27,6 +30,7 @@ public class Util {
 
   private static ClassLoader loader;
 
+
   public static Logger log() {
     return LOG;
   }
@@ -35,9 +39,11 @@ public class Util {
     LOG.info(msglog);
   }
 
+
   public static void logQuery(final String log) {
     System.out.println(log);
   }
+
 
   public static String getStr(final String str) {
     return Config.srv().getProperty(str);
@@ -52,6 +58,7 @@ public class Util {
     }
     throw new RuntimeException();
   }
+
 
   public static String getAddress(Socket socket) {
 
@@ -122,4 +129,5 @@ public class Util {
 
     return sbhash.toString();
   }
+
 }

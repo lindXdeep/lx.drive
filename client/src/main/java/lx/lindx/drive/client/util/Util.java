@@ -65,6 +65,7 @@ public class Util {
     System.out.print(progress);
   }
 
+
   public static int byteToInt(byte[] bytes) {
     return (bytes != null || bytes.length == 4) ?
 
@@ -90,4 +91,5 @@ public class Util {
   public static byte[] strToByte(String str) {
     return str.getBytes();
   }
+
 }

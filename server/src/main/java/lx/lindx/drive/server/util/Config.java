@@ -12,6 +12,7 @@ public class Config {
   private static Properties srv;
   private static Properties cfg;
 
+
   private static final int PORT;
   private static final int BUFF;
 
@@ -33,6 +34,7 @@ public class Config {
     DB_USER = cfg.getProperty("db.user");
     DB_PASS = cfg.getProperty("db.pass");
     DB_DRIVER = cfg.getProperty("db.driver");
+
   }
 
   public static int getPort() {
@@ -42,6 +44,7 @@ public class Config {
   public static int getBufSize() {
     return BUFF;
   }
+
 
   public static String getDbUrl() {
     return DB_URL + DB_PARAM;
@@ -66,6 +69,7 @@ public class Config {
   public static int getDataSizeBlockSize(){
     return Integer.parseInt(cfg.getProperty("blk.size.datasize"));
   }
+
 
   protected static Properties srv() {
     return srv;

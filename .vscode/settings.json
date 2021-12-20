@@ -6,22 +6,20 @@
     "**/.factorypath": true,
     "**/.dccache": true,
     "**/target": true,
-
+    
     "**/out": true,
     "**/log": false,
     "mvnw.cmd": true,
     "mvnw": true,
 
     "server": false, 
-    
-    ".mvn/": true,
+
     "README.md": false,
     "**/pom.xml": false,
     "makefile": false,
     ".gitignore": true,
     "**/libs": true,
   },
-
 
   "java.configuration.updateBuildConfiguration": "automatic",
   "sqltools.connections": [
@@ -39,4 +37,6 @@
       "password": "Mysql12345!"
     }
   ]
+
+  "java.configuration.updateBuildConfiguration": "automatic"
 }

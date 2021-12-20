@@ -1,9 +1,11 @@
 package lx.lindx.drive.client;
 
+
 import lx.lindx.drive.client.api.Auth;
 import lx.lindx.drive.client.api.Connect;
 import lx.lindx.drive.client.err.UserDirNotFoundException;
 import lx.lindx.drive.client.net.Protocol;
+
 import lx.lindx.drive.client.util.Util;
 
 /**
@@ -12,6 +14,7 @@ import lx.lindx.drive.client.util.Util;
 public class App {
 
   private static Connect connect;
+
   private static Controller controller;
   private static Auth auth;
 
@@ -42,5 +45,6 @@ public class App {
 
     System.out.println("----enterToAccount-----");
     controller.enterToAccount();
+
   }
 }
