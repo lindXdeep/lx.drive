@@ -40,10 +40,6 @@ public class AuthProcessor {
     return new byte[0];
   }
 
-  public char[] getAuthCodeAnd(JSONObject tmpUser) {
-    return null;
-  }
-
   public boolean enable(final String key) {
 
     User user = null;

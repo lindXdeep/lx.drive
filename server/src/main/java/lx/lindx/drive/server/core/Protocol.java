@@ -1,4 +1,4 @@
-package lx.lindx.drive.server.net;
+package lx.lindx.drive.server.core;
 
 import java.nio.ByteBuffer;
 import java.util.Arrays;
@@ -21,6 +21,11 @@ public class Protocol {
     this.comm_blk = Config.getCommandBlockSize();
     this.data_blk = Config.getDataSizeBlockSize();
     this.zero_data_idx = this.comm_blk + this.data_blk;
+  }
+
+  public byte[] packed(final byte[] command) {
+
+    return packed(command, new byte[0]);
   }
 
   public byte[] packed(final byte[] command, final byte[] data) {

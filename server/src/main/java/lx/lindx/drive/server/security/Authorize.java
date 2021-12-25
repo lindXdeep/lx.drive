@@ -2,9 +2,9 @@ package lx.lindx.drive.server.security;
 
 import org.json.simple.JSONObject;
 
+import lx.lindx.drive.server.core.Connection;
+import lx.lindx.drive.server.core.Protocol;
 import lx.lindx.drive.server.core.Server;
-import lx.lindx.drive.server.net.Connection;
-import lx.lindx.drive.server.net.Protocol;
 import lx.lindx.drive.server.util.Config;
 import lx.lindx.drive.server.util.Util;
 
@@ -61,4 +61,15 @@ public class Authorize {
     connection.send(new byte[0]);
     return false;
   }
+
+  public boolean isRevoke() {
+    return server.getAuthProcessor().isKeyExist();
+  }
+
+  public void revoke() {
+    server.getAuthProcessor().disable();
+  }
+
+
+
 }

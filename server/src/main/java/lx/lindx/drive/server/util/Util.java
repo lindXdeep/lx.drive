@@ -1,9 +1,15 @@
 package lx.lindx.drive.server.util;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,15 +17,21 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import lx.lindx.drive.server.sync.MetaData;
+
 public class Util {
 
   private final static Logger LOG = LogManager.getLogger(Util.class.getSuperclass().getName());
   private static StringBuilder sb;
-  private static MessageDigest sha1;
+  private static MessageDigest sha1; // для пароля
+  private static MessageDigest digest; // для снапшотов
+
+  private static byte[] buffer;
 
   static {
     try {
       sha1 = MessageDigest.getInstance("SHA-1");
+      digest = MessageDigest.getInstance("SHA3-256");
     } catch (NoSuchAlgorithmException e) {
       e.printStackTrace();
     }
@@ -121,5 +133,50 @@ public class Util {
       sbhash.append(String.format("%02X", b));
 
     return sbhash.toString();
+  }
+
+  public static byte[] objectToBytes(final Object object) {
+    try (ByteArrayOutputStream bytes = new ByteArrayOutputStream()) {
+      try (ObjectOutputStream obj_out = new ObjectOutputStream(bytes)) {
+        obj_out.writeObject(object);
+        obj_out.flush();
+        return bytes.toByteArray();
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    throw new RuntimeException();
+  }
+
+  public static Object bytesToObject(final byte[] bytes) {
+    try (ByteArrayInputStream bytein = new ByteArrayInputStream(bytes)) {
+      try (ObjectInputStream objin = new ObjectInputStream(bytein)) {
+        return objin.readObject();
+      }
+    } catch (ClassNotFoundException | IOException e) {
+      Util.log().error(e.getMessage());
+    }
+    throw new RuntimeException();
+  }
+
+  private static String bytesToHex(final byte[] bytes) {
+
+    StringBuilder hexStr = new StringBuilder();
+
+    for (byte b : bytes) {
+      String hex = Integer.toHexString(0xff & b);
+      hexStr.append(hex.length() == 1 ? '0' : hex);
+    }
+    return hexStr.toString();
+  }
+
+  public static String toHex(final Object o) {
+    final byte[] hashbytes = digest.digest(objectToBytes(o));
+    return bytesToHex(hashbytes);
+  }
+
+  public static String toHex(final String s) {
+    final byte[] hashbytes = digest.digest(s.getBytes());
+    return bytesToHex(hashbytes);
   }
 }

@@ -1,11 +1,10 @@
-package lx.lindx.drive.server.net;
+package lx.lindx.drive.server.core;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-import lx.lindx.drive.server.core.Server;
 import lx.lindx.drive.server.err.CantReadBytesExeption;
 import lx.lindx.drive.server.err.CantWriteBytesExeption;
 import lx.lindx.drive.server.security.Authorize;
@@ -22,11 +21,14 @@ public class Connection extends Thread {
   private Socket client;
   private Server server;
   private String curUser;
+  private Controller controller;
 
   public Connection(Socket client, Server server) throws IOException {
 
+    this.buffer = new byte[Config.getBufSize()];
     this.client = client;
     this.server = server;
+    this.controller = new Controller(server, this);
 
     in = new DataInputStream(client.getInputStream());
     out = new DataOutputStream(client.getOutputStream());
@@ -46,9 +48,28 @@ public class Connection extends Thread {
       kill();
     }
 
+    if (auth.isRevoke()) {
+      Util.log("Auth passed. " + client);
+      server.getConnectionPool().add(this);
+    }
+
+    curUser = server.getAuthProcessor().getCurrentUserName();
+
+    try {
+
+      while (auth.isRevoke() && (buffer = read()).length != 0) {
+
+        controller.proccess(buffer);
+      }
+
+    } catch (RuntimeException e) {
+      Util.log("Lost connection to @" + curUser);
+      kill();
+      server.getConnectionPool().delete(curUser);
+    }
+
     System.out.println("-----------pass -----------");
-    
-  
+
     // Protocol protocol = new Protocol();
 
     // byte[] buf = this.read();
@@ -56,39 +77,32 @@ public class Connection extends Thread {
     // String command = Util.byteToStr(protocol.unpacked(buf)[0]).trim();
     // String data = Util.byteToStr(protocol.unpacked(buf)[2]);
     // int dataSize = Util.byteToInt(protocol.unpacked(buf)[1]);
-  
+
     // System.out.println(command);
     // System.out.println(data);
     // System.out.println(dataSize);
 
- 
+    // try {
 
-   
+    // while (!auth.authorize(in.readAllBytes())) {
 
+    // Util.log().error(Util.getStr("err.access"));
 
-
-  //  try {
-
-      // while (!auth.authorize(in.readAllBytes())) {
-
-      //   Util.log().error(Util.getStr("err.access"));
-
-      // }
-      
-      // else {
-      //   Util.log("Auth passed. " + client);
-      //   curUser = server.getAuthProcessor().getCurrentUserName();
-      //   server.getConnectionPool().add(this);
-      // }
-
-    // } catch (IOException e1) {
-    //   System.out.println("'///////////////////////'");
-    //   e1.printStackTrace();
     // }
 
-    //System.out.println("----------end----------------------------");
-  }
+    // else {
+    // Util.log("Auth passed. " + client);
+    // curUser = server.getAuthProcessor().getCurrentUserName();
+    // server.getConnectionPool().add(this);
+    // }
 
+    // } catch (IOException e1) {
+    // System.out.println("'///////////////////////'");
+    // e1.printStackTrace();
+    // }
+
+    // System.out.println("----------end----------------------------");
+  }
 
   // Not secure
   public byte[] read() throws CantReadBytesExeption {

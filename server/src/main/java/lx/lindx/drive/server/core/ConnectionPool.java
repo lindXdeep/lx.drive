@@ -1,4 +1,4 @@
-package lx.lindx.drive.server.net;
+package lx.lindx.drive.server.core;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,5 +44,10 @@ public class ConnectionPool {
   // ------ utils ------
   public boolean contains(String username) {
     return connections.containsKey(username);
+  }
+
+  public void delete(String curUser) {
+    connections.remove(curUser);
+    Util.log("@".concat(curUser) + " - Offline...");
   }
 }

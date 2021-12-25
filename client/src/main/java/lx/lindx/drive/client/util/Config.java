@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import lx.lindx.drive.client.net.Protocol;
-
 /**
  * Server Config
  */

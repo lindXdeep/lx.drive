@@ -38,14 +38,18 @@ public class Cli {
 
     if (command.matches("/help") || command.matches("^0")) {
       System.out.printf("\n" + Util.getProp("help") + "\n");
-    } else if (command.matches("^/connect") || command.matches("^1")) {
+    } else if (command.matches("^connect") || command.matches("^1")) {
       controller.connect();
-    } else if (command.matches("^/signin\\s[a-zA-Z]{3,64}\\s[a-zA-Z0-9]{3,64}$")) {
+    } else if (command.matches("^signin\\s[a-zA-Z]{3,64}\\s[a-zA-Z0-9]{3,64}$")) {
       controller.sigin(command.split("\\s")[1], command.split("\\s")[2]);
       controller.enterToAccount();
-    } else if (command.matches("^/key") || command.matches("^2")) {
+    } else if (command.matches("^key") || command.matches("^2")) {
       controller.authWithkey();
       controller.enterToAccount();
+    } else if (command.matches("disconnect") || command.matches("^3")) {
+      controller.disconnect();
+    }else if (command.matches("sync") || command.matches("^4")) {
+      controller.syns();
     }
   }
 

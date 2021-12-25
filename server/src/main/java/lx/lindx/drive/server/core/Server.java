@@ -5,8 +5,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import lombok.Data;
-import lx.lindx.drive.server.net.Connection;
-import lx.lindx.drive.server.net.ConnectionPool;
 import lx.lindx.drive.server.security.AuthProcessor;
 import lx.lindx.drive.server.service.UserServiceImpl;
 import lx.lindx.drive.server.util.Config;
@@ -48,4 +46,5 @@ public class Server extends Thread {
     } catch (IOException e) {
     }
   }
+
 }

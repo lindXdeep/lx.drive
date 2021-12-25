@@ -1,6 +1,11 @@
 package lx.lindx.drive.client.api;
 
+import java.util.Iterator;
+import java.util.Set;
+
 import lx.lindx.drive.client.net.Protocol;
+import lx.lindx.drive.client.sync.MetaData;
+import lx.lindx.drive.client.sync.Sync;
 import lx.lindx.drive.client.util.Util;
 
 public class Controller {
@@ -9,6 +14,7 @@ public class Controller {
   private Auth auth;
   private byte[] singleBuff;
   private byte[][] doubleBuff;
+  private Sync sync;
 
   private Protocol protocol;
 
@@ -16,6 +22,7 @@ public class Controller {
     this.connect = connect;
     this.auth = auth;
     this.protocol = new Protocol();
+    this.sync = new Sync(Util.getCfgProp("src.dir"));
   }
 
   public void connect() {
@@ -60,6 +67,7 @@ public class Controller {
 
         while (true) {
 
+          System.out.print("recive: ");
           System.out.println(Util.byteToStr(connect.read()));
 
         }
@@ -70,5 +78,23 @@ public class Controller {
       return true;
     }
     return false;
+  }
+
+  public void disconnect() {
+    connect.send(protocol.packed("/disconnet".getBytes(), new byte[0]));
+    connect.disconnet();
+  }
+
+  public void syns() {
+
+    sync.make();
+    sync.save();
+
+    
+
+    sync.showSnaps();
+
+    connect.send(protocol.packed("/sync".getBytes()));
+    System.exit(0);
   }
 }

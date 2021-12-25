@@ -82,4 +82,4 @@ copy-dependencies:
 # -- deploy server and client --
 
 deploy:
-	cp -r server ../../repo-default/gb-javacore/server/ client ../../repo-default/gb-javacore/client/
+	cp -r server ../../repo-default/gb-javacore/ && cp -r client ../../repo-default/gb-javacore/

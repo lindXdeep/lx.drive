@@ -25,6 +25,11 @@ public class Protocol {
     this.zero_data_idx = this.comm_blk + this.data_blk;
   }
 
+  public byte[] packed(final byte[] command) {
+    
+    return packed(command, new byte[0]);
+  }
+
   public byte[] packed(final byte[] command, final byte[] data) {
 
     ByteBuffer request;
